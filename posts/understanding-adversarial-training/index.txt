@@ -1,8 +1,8 @@
 ---
 title: "Understanding Adversarial Training with Energy-based Models"
-date: "October 2023"
+date: "May 2025"
 category: "Explainer"
-readtime: "10 min read"
+readtime: "5 min read"
 ---
 
 ## 🔍 What Are Adversarial Examples?
