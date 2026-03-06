@@ -201,7 +201,7 @@
             }
 
             // Fetch the markdown file from the post's dedicated folder
-            fetch('posts/' + slug + '/index.md')
+            fetch('posts/' + slug + '/index.txt')
                 .then(function (res) {
                     if (!res.ok) throw new Error('Post not found (' + res.status + ')');
                     return res.text();
