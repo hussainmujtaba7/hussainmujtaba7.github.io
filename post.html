@@ -211,7 +211,7 @@
                     var fm = {};
                     var content = text;
                     if (text.startsWith('---')) {
-                        var end = text.indexOf('---', 3);
+                        var end = text.search(/\n---(\r?\n|$)/);
                         if (end !== -1) {
                             var fmBlock = text.slice(3, end).trim();
                             content = text.slice(end + 3).trim();
