@@ -1,0 +1,10 @@
+[
+    {
+        "slug": "understanding-adversarial-training",
+        "title": "Understanding Adversarial Training with Energy-based Models",
+        "date": "May 2025",
+        "category": "Explainer",
+        "readtime": "5 min read",
+        "excerpt": "Adversarial training is one of the most effective defenses against adversarial examples, but it often suffers from overfitting, making stable training challenging. In this post, we will explore this phenomenon through the lens of energy-based models."
+    }
+]

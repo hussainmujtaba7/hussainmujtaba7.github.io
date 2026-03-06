@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Blog by Mirza Mujtaba Hussain — articles on Adversarial Machine Learning, Energy-based Models, and AI research." />
+  <title>Blog — Mujtaba Hussain Mirza</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+
+  <!-- ── Page Header (Combined Nav & Title) ─────────────── -->
+  <header class="page-header">
+    <div class="page-header-inner">
+      <div class="page-header-nav">
+        <ul class="nav-links" style="padding-left:0; margin:0;">
+          <li>
+            <a href="index.html" style="display:flex; align-items:center; gap:0.25rem;">
+              <img src="assets/logo.png" alt="Website Logo" class="nav-logo"
+                style="height: 32px; width: auto; object-fit: contain;" />
+              Home
+            </a>
+          </li>
+          <li><a href="blog.html" class="active">Blog</a></li>
+        </ul>
+      </div>
+      <h1>Blog</h1>
+      <p>Essays &amp; Explainers on AI Research</p>
+    </div>
+  </header>
+
+  <!-- ── Main Content ───────────────────────────────────── -->
+  <main>
+    <div class="container" style="padding-bottom: 4rem;">
+      <div class="retro-divider">Latest Posts</div>
+
+      <!-- Rendered dynamically by JavaScript from data/posts.json -->
+      <div id="blog-grid" class="blog-grid" role="list">
+        <p id="blog-loading" style="color:var(--text-muted); font-style:italic;">Loading posts…</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- ── Footer ─────────────────────────────────────────── -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div>
+        <p class="footer-name">Mujtaba Hussain Mirza</p>
+        <p class="footer-copy">PhD Student · Sapienza University of Rome</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="blog.html">Blog</a></li>
+      </ul>
+    </div>
+    <div
+      style="text-align: center; margin-top: 2rem; color: #8B7A68; font-family: var(--font-mono); font-size: 0.8rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+      From --- <img src="assets/logo.png" alt="Website Logo" style="height: 24px; width: auto; object-fit: contain;">
+    </div>
+  </footer>
+
+  <a href="#" id="scroll-top" class="scroll-top" aria-label="Scroll to top">↑</a>
+  <script src="js/main.js"></script>
+  <script>
+    // ── Load and render blog posts from data/posts.json ────────────
+    // To add a post: add an entry here AND a matching .md file in posts/
+    // To remove: delete the entry. That's it — no HTML to edit.
+    (function () {
+      const grid = document.getElementById('blog-grid');
+      const loading = document.getElementById('blog-loading');
+
+      fetch('data/posts.json')
+        .then(function (r) {
+          if (!r.ok) throw new Error('Could not load posts list');
+          return r.json();
+        })
+        .then(function (posts) {
+          loading.remove();
+          if (!posts.length) {
+            grid.innerHTML = '<p style="color:var(--text-muted);">No posts yet.</p>';
+            return;
+          }
+          posts.forEach(function (post) {
+            var card = document.createElement('a'); // Make the whole card a link!
+            card.className = 'blog-card';
+            card.href = 'post.html?slug=' + post.slug;
+            card.style.display = 'block';
+            card.style.textDecoration = 'none';
+            card.style.color = 'inherit';
+            card.setAttribute('role', 'listitem');
+            card.innerHTML =
+              '<div class="blog-card-header">' +
+              '<div class="blog-meta">' +
+              '<span class="blog-date">' + (post.date || '') + '</span>' +
+              (post.category ? '<span class="blog-category">' + post.category + '</span>' : '') +
+              '</div>' +
+              '<h2 class="blog-title">' + post.title + '</h2>' +
+              '</div>' +
+              '<div class="blog-excerpt"><p style="color:var(--text-muted);">' + (post.excerpt || '') + '</p></div>' +
+              '<div class="blog-card-footer">' +
+              '<span class="read-more-btn">Read More &rarr;</span>' +
+              (post.readtime ? '<span class="blog-date">~' + post.readtime + '</span>' : '') +
+              '</div>';
+            grid.appendChild(card);
+          });
+        })
+        .catch(function (err) {
+          loading.textContent = 'Could not load posts: ' + err.message + '. Make sure the site is served over HTTP (not opened as a local file).';
+        });
+    })();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+[
+    {
+        "title": "Shedding More Light on Robust Classifiers Under the Lens of Energy-Based Models",
+        "authors": "Mujtaba Hussain Mirza, Maria Rosaria Briglia, Senad Beadini, Iacopo Masi",
+        "venue": "European Conference on Computer Vision (ECCV) · 2024",
+        "pdf": "https://www.ecva.net/papers/eccv_2024/papers_ECCV/papers/00457.pdf",
+        "arxiv": "https://arxiv.org/pdf/2407.06315",
+        "code": "",
+        "slides": "",
+        "poster": ""
+    },
+    {
+        "title": " A Provable Energy-Guided Test-Time Defense Boosting Adversarial Robustness of Large Vision-Language Models",
+        "authors": "Mujtaba Hussain Mirza, Antonio D'Orazio, Odelia Melamed, Iacopo Masi",
+        "venue": "Conference on Computer Vision and Pattern Recognition (CVPR) · 2026",
+        "pdf": "assets/papers/mirza2026et3_c.pdf",
+        "code": ""
+    },
+    {
+        "title": "Why Adversarially Train Diffusion Models?",
+        "authors": "Maria Rosaria Briglia, Mujtaba Hussain Mirza, Giuseppe Lisanti, Iacopo Masi",
+        "venue": "International Conference on Learning Representations (ICLR) · 2026",
+        "pdf": "https://openreview.net/pdf?id=lL6htAaolp",
+        "code": "",
+        "slides": ""
+    },
+    {
+        "title": "Understanding Adversarial Training with Energy-based Models",
+        "authors": "Mujtaba Hussain Mirza, Maria Rosaria Briglia, Filippo Bartolucci, Senad Beadini, Giuseppe Lisanti, Iacopo Masi",
+        "venue": "Preprint · arXiv 2024",
+        "arxiv": "https://arxiv.org/abs/2505.22486",
+        "code": ""
+    }
+]

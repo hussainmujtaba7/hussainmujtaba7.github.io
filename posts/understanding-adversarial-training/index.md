@@ -1,0 +1,105 @@
+---
+title: "Understanding Adversarial Training with Energy-based Models"
+date: "October 2023"
+category: "Explainer"
+readtime: "10 min read"
+---
+
+## 🔍 What Are Adversarial Examples?
+
+![](example.png)
+<small>[Credit: https://savan77.github.io/blog/imagenet_adv_examples.html]</small>
+
+Adversarial examples are inputs that have been slightly modified to fool a model into making a wrong prediction, even though the change is imperceptible to humans.
+
+Given an input image, we generate an adversarial example by adding a small perturbation to the image:
+
+$$x^* = x + \delta \text{, where }\delta \text{ is constrained by some maximum norm, } \|\delta\| \leq \epsilon$$
+
+## 🛡️ What Is Adversarial Training?
+
+Adversarial training aims to make the model robust by **training it on adversarial examples** instead of just clean inputs. This is written as a min-max problem:
+
+$$\min_\theta \ \mathbb{E}{(x, y) \sim \mathcal{D}} \left[ \max{\|\delta\| \leq \epsilon} L(f_\theta(x + \delta), y) \right]$$
+
+**Single-step Adversarial Training** involves generating adversarial examples using Fast Gradient Signed Method (FGSM) , taking a single, fast gradient ascent step for each input. **Multi-step Adversarial Training** generates adversarial examples using Projected Gradient Descent (PGD) which iteratively applying small gradient ascent steps, allowing for more potent perturbations, but very slow to train.
+
+## 🧨 Overfitting in Robust Models
+
+Even though adversarial training improves robustness, it can suffer from :
+
+---
+
+### 🧨 Catastrophic Overfitting (CO)
+
+This behaviour is typically observed in **single-step adversarial training**. Early in training, the model remains robust to both strong attacks like PGD and weaker ones like FGSM. However, once **Catastrophic Overfitting (CO)** sets in, the model quickly begins to **perform perfectly against FGSM**, while **failing dramatically against stronger attacks like PGD**—often within just a few epochs.
+
+### 🚨Robust Overfitting (RO)
+
+This typically occurs in **multi-step adversarial training**: the model becomes increasingly robust on the **training set**, but fails to **generalise to unseen adversarial examples**, as shown by a **drop in robust accuracy on the test set**.
+
+## 🧠 Energy-Based Models: What Are They?
+
+**Energy-Based Models (EBMs)**, also known as non-normalised probabilistic models, define a probability density or mass function up to an unknown normalising constant. Instead of directly assigning probabilities to inputs, EBMs assign a scalar value called **"energy"** to each input. A **lower energy** indicates a higher likelihood or plausibility for that input, while **higher energy** signifies a lower likelihood or implausibility. The model learns by shaping this energy landscape such that real data points reside in low-energy regions and implausible inputs are pushed to high-energy regions.
+
+Mathematically:
+
+$$p_f(x) = \frac{e^{-E_f(x)}}{\text{Z}}, \text{ where } E_f(x) \text{ is the energy function.}$$
+
+The normalising constant **(Z)** is intractable, meaning it's computationally infeasible to calculate exactly. In simple terms: EBMs say, “**A sample is more likely if it has lower energy and vice versa.**”
+
+## ⚡ Interpreting a Classifier as an EBM
+
+![](jem.png)
+<small>[Credit: https://wgrathwohl.github.io/JEM/]</small>
+
+
+Any classifier can be viewed as an energy-based model, where the energy values can be derived directly from its output logits. For a sample **𝑥** with the groud-truth label, ***y*** , the marginal energy is defined :
+
+$$E_f(x) = -\log \sum_k \exp(f_\theta(x)[k]) \text{, and joint energy as: } E_f(x, y) = -f_\theta(x)[y]$$
+
+This also gives a new interpretation of the cross-entropy loss:
+
+$$L_{\text{CE}}(x, y) = E_f(x, y) - E_f(x)$$
+
+## ⚡ Relation Between overfitting in AT and Energy
+
+When tracking the energy values of a real sample **𝑥** and its adversarial counterpart **𝑥\*** during Adversarial Training (AT), an interesting pattern emerges. In **multi-step AT**, a similar phenomenon occurs toward the end of training when **Robust Overfitting (RO)** appears. Some examples also begin to show an abnormal increase in energy difference between **𝑥** and **𝑥\***, though this increase is **less extreme** than in the CO case.
+
+![](quiver.png)
+
+> The above quiver plot visualises a random subset, showing how the energy values change from original clean samples to their adversarial versions. Each arrow starts at the energy levels of a clean sample and points to the energy levels of its adversarial counterpart. The arrow’s are scaled to make them easier to see, and their colours show how big the energy shift is — basically, how much the adversarial example “moves” the energy compared to the original. The dashed black line represents where the two energy values are equal, zero cross-entropy loss for the sample.
+
+In **single-step AT**, as soon as **Catastrophic Overfitting (CO)** sets in, certain samples begin to exhibit a **drastically larger energy difference** compared to the rest. Upon further analysis, these samples are identified as **abnormal adversarial examples (AAE)** — unlike typical cases, adding perturbations to these samples during training **decreases their loss**, rather than increasing it.
+
+![](quiveraae.png)
+
+> The above quiver plot visualises how the energy values change from original clean samples to their adversarial versions ***for only abnormal adversarial examples (AAEs)***. Each arrow starts at the energy levels of a clean sample and points to the energy levels of its adversarial counterpart. The arrow’s colour intensity show how big the energy shift is — basically, how much the adversarial example “moves” the energy compared to the original. The dashed black line represents where the two energy values are equal, meaning zero cross-entropy loss for the sample.
+
+## 🛠️ Fixing Overfitting with Delta Energy Regularisation (DER)
+
+To mitigate overfitting, it's important to maintain a small energy gap between clean inputs **𝑥** and their adversarial counterparts **𝑥\*** . The DER regulariser enforces this by:
+
+$$L_{\Delta E} = \max \left( \left\| [\Delta E_f(x), \Delta E_f(x, y)] \right\|_2 - \gamma, 0 \right)$$
+
+$$\text{where, } \Delta E_f(x) = E_f(x) - E_f(x^*) \text{, and, } \Delta E_f(x, y) = E_f(x, y) - E_f(x^*, y)$$
+
+---
+
+For **multi-step** AT, the training loss becomes :
+
+$$L = L_{CE}(x^*) + \beta \cdot L_{\Delta E} \text{ , where } \beta \text{ is the regularization parameter.}$$
+
+In **single-step** AT, we apply the DER only to AAEs:
+
+$$L = L_{CE}(x^*) + \beta \cdot 1_{\text{AAE}} \cdot L_{\Delta E}$$
+
+---
+
+*This blog is based on the work from following research papers:*
+
+> [Mirza Mujtaba Hussain et al. “Understanding Adversarial Training with Energy-based Models.” (2025).](https://arxiv.org/pdf/2505.22486)
+> 
+> [Mirza Mujtaba Hussain, et al. "**Shedding More Light on Robust Classifiers Under the Lens of Energy-Based Models.**" *European Conference on Computer Vision. 2024.*](https://arxiv.org/pdf/2407.06315)
+> 
+> [Beadini, Senad, and Iacopo Masi. "**Exploring the Connection between Robust and Generative Models**." *Ital-IA Convegno Nazionale CINI sull'Intelligenza Artificiale-Workshop on AI for Cybersecurity*. 2023.](https://arxiv.org/pdf/2304.04033)
