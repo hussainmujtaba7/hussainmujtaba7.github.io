@@ -207,14 +207,17 @@
                     return res.text();
                 })
                 .then(function (text) {
+                    // Strip BOM and normalize line endings before parsing
+                    text = text.replace(/^\uFEFF/, '').replace(/\r\n/g, '\n').replace(/\r/g, '\n');
                     // Parse front-matter
                     var fm = {};
                     var content = text;
                     if (text.startsWith('---')) {
-                        var end = text.search(/\n---(\r?\n|$)/);
+                        var end = text.search(/\n---[ \t]*(\n|$)/);
                         if (end !== -1) {
                             var fmBlock = text.slice(3, end).trim();
-                            content = text.slice(end + 3).trim();
+                            var afterEnd = text.indexOf('\n', end + 1);
+                            content = afterEnd !== -1 ? text.slice(afterEnd + 1).trim() : '';
                             fmBlock.split('\n').forEach(function (line) {
                                 var colon = line.indexOf(':');
                                 if (colon !== -1) {
