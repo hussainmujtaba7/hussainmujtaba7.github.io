@@ -1,0 +1,1184 @@
+/* =========================================================
+   RETRO ACADEMIC THEME — Mirza Mujtaba Hussain
+   ========================================================= */
+
+/* ── Google Fonts ─────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap');
+
+/* ── Custom Properties ────────────────────────────────── */
+:root {
+  --bg: #F5F0E8;
+  --bg-card: #FAF7F2;
+  --bg-dark: #28283E;
+  --text: #2C2416;
+  --text-muted: #6B5F52;
+  --accent: #8B2E2E;
+  --accent-2: #4A6741;
+  --border: #C4B49A;
+  --border-dark: #8B7A68;
+  --shadow: rgba(44, 36, 22, 0.12);
+  --pattern: rgba(101, 67, 33, 0.18);
+
+  --font-head: 'Playfair Display', Georgia, serif;
+  --font-body: 'Lora', Georgia, serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+
+  --radius: 0px;
+  /* sharp retro corners */
+  --max-w: 920px;
+  --nav-h: 90px;
+  /* taller for the masthead */
+}
+
+/* ── Reset & Base ─────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--bg);
+  background-image: url('../assets/research_bg_grid.png');
+  background-size: 400px;
+  background-repeat: repeat;
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.75;
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--accent-2);
+  text-decoration: underline;
+}
+
+/* ── Typography ───────────────────────────────────────── */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-head);
+  color: var(--text);
+  line-height: 1.25;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 900;
+}
+
+h2 {
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  font-weight: 700;
+}
+
+h3 {
+  font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+  font-weight: 700;
+}
+
+h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+/* ── Layout Utilities ─────────────────────────────────── */
+.container {
+  max-width: var(--max-w);
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+.page-wrapper {
+  padding-top: calc(var(--nav-h) + 2rem);
+  padding-bottom: 4rem;
+}
+
+/* ── Retro Divider ─────────────────────────────────────── */
+.retro-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 2rem 0;
+  color: var(--border-dark);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+}
+
+.retro-divider::before,
+.retro-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── Section Title ─────────────────────────────────────── */
+.section-title {
+  font-family: var(--font-head);
+  font-size: clamp(1.3rem, 3vw, 1.75rem);
+  font-weight: 700;
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+}
+
+/* ── NAV — Retro Masthead ─────────────────────────────── */
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--nav-h);
+  z-index: 1000;
+  display: flex;
+  align-items: stretch;
+  /* Grid texture on top of dark bg with slight blue tint overlay */
+  background-color: #1e1e30;
+  background-image:
+    linear-gradient(rgba(20, 20, 45, 0.82), rgba(20, 20, 45, 0.82)),
+    url('../assets/research_bg_grid.png');
+  background-size: auto, 320px;
+  background-repeat: repeat;
+  /* Top highlight line */
+  border-top: 2px solid rgba(196, 180, 154, 0.35);
+  /* Double-rule bottom border: accent color + muted line */
+  border-bottom: 0;
+  box-shadow: 0 3px 0 var(--accent), 0 5px 0 rgba(139, 46, 46, 0.2);
+}
+
+/* Decorative horizontal rule inside nav */
+.site-nav::after {
+  content: '';
+  position: absolute;
+  bottom: -7px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(196, 180, 154, 0.3), transparent);
+  pointer-events: none;
+}
+
+.nav-inner {
+  max-width: var(--max-w);
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* ── Brand / Masthead Name ───────────────────────────── */
+.nav-brand {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  line-height: 1;
+  position: relative;
+  padding-right: 1.5rem;
+}
+
+.nav-logo {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.nav-brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Vertical ornamental rule to the right of the name */
+.nav-brand::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 8%;
+  bottom: 8%;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(196, 180, 154, 0.4), transparent);
+}
+
+.nav-brand-name {
+  font-family: var(--font-head);
+  font-size: clamp(1.45rem, 3vw, 1.8rem);
+  font-weight: 900;
+  color: #FAF7F2;
+  letter-spacing: 0.04em;
+  line-height: 1.05;
+  /* Subtle text-shadow for depth */
+  text-shadow: 1px 2px 8px rgba(0, 0, 0, 0.55);
+}
+
+.nav-brand-name em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+.nav-brand-sub {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #8B7A68;
+  margin-top: 0.3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+/* Ornamental lines flanking the subtitle */
+.nav-brand-sub::before,
+.nav-brand-sub::after {
+  content: '';
+  display: inline-block;
+  width: 18px;
+  height: 1px;
+  background: rgba(139, 122, 104, 0.5);
+  flex-shrink: 0;
+}
+
+/* ── Nav Links ──────────────────────────────────────── */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  list-style: none;
+  flex-shrink: 0;
+}
+
+.nav-links img.nav-logo {
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.nav-links img.nav-logo:hover {
+  opacity: 0.8;
+}
+
+.nav-links a {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #9A8A78;
+  padding: 0.4rem 0.85rem;
+  border: 1px solid transparent;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  text-decoration: none;
+  position: relative;
+}
+
+.nav-links a:not(.logo-link):hover,
+.nav-links a:not(.logo-link).active {
+  color: #FAF7F2;
+  border-color: rgba(139, 46, 46, 0.45);
+  border-bottom-color: var(--accent);
+  background: rgba(139, 46, 46, 0.1);
+}
+
+/* ── Hamburger toggle is removed, keeping simple flex nav ── */
+
+/* ── HERO (Home) ─────────────────────────────────────── */
+.hero {
+  padding: 3.5rem 0 2.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.hero-name {
+  font-size: clamp(2.2rem, 6vw, 3.5rem);
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 0.35rem;
+}
+
+.hero-title {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.15rem;
+}
+
+.hero-institution {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.hero-bio {
+  max-width: 640px;
+  font-size: 0.97rem;
+  color: var(--text-muted);
+}
+
+.hero-avatar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+  width: 200px;
+}
+
+@media (max-width: 520px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-avatar {
+    order: -1;
+    width: 140px;
+  }
+
+  .avatar-wrapper {
+    width: 140px;
+    height: 140px;
+  }
+}
+
+/* ── Research Interests Tags ──────────────────────────── */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: transparent;
+  border: 1px solid var(--accent);
+  padding: 0.25rem 0.6rem;
+  transition: all 0.2s;
+}
+
+.tag:hover {
+  background: var(--accent);
+  color: #FAF7F2;
+}
+
+/* ── Info Cards (Education) ───────────────────────────── */
+.edu-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.edu-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  padding: 1rem 1.25rem;
+  transition: box-shadow 0.2s;
+}
+
+.edu-card:hover {
+  box-shadow: 4px 4px 0 var(--border);
+}
+
+.edu-degree {
+  font-family: var(--font-head);
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+}
+
+.edu-meta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+/* ── Publications Page ────────────────────────────────── */
+.pub-list {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.pub-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  position: relative;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.pub-card::before {
+  content: attr(data-number);
+  position: absolute;
+  top: -12px;
+  left: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  background: var(--accent);
+  color: #FAF7F2;
+  padding: 2px 8px;
+  letter-spacing: 0.1em;
+}
+
+.pub-card:hover {
+  box-shadow: 5px 5px 0 var(--border-dark);
+  transform: translate(-2px, -2px);
+}
+
+.pub-title {
+  font-family: var(--font-head);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.pub-authors {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.pub-venue {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--accent-2);
+  letter-spacing: 0.06em;
+  margin-bottom: 0.75rem;
+}
+
+.pub-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.btn-link {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid var(--border-dark);
+  color: var(--text-muted);
+  padding: 0.25rem 0.65rem;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+
+.btn-link:hover {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+  text-decoration: none;
+}
+
+/* ── CV Page ──────────────────────────────────────────── */
+.cv-download-bar {
+  background: var(--bg-dark);
+  color: #FAF7F2;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  border-bottom: 3px solid var(--accent);
+  margin-bottom: 2.5rem;
+}
+
+.cv-download-bar p {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  color: #C4B49A;
+  margin: 0;
+}
+
+.btn-download {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--accent);
+  color: #FAF7F2;
+  padding: 0.5rem 1.1rem;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s;
+  display: inline-block;
+}
+
+.btn-download:hover {
+  background: #6B1E1E;
+  color: #FAF7F2;
+  text-decoration: none;
+}
+
+.cv-section {
+  margin-bottom: 2.5rem;
+}
+
+.cv-section+.cv-section {
+  border-top: 1px dashed var(--border);
+  padding-top: 2.5rem;
+}
+
+.cv-row {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 1rem 1.5rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.cv-row:last-child {
+  border-bottom: none;
+}
+
+.cv-year {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  padding-top: 0.2rem;
+}
+
+.cv-body h3 {
+  font-size: 1rem;
+  margin-bottom: 0.15rem;
+}
+
+.cv-body p,
+.cv-body li {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 0.2rem;
+}
+
+.cv-body ul {
+  padding-left: 1.2rem;
+}
+
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.skill-badge {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  background: var(--bg);
+  border: 1px solid var(--border-dark);
+  color: var(--text-muted);
+  padding: 0.25rem 0.6rem;
+}
+
+@media (max-width: 540px) {
+  .cv-row {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+}
+
+/* ── Blog Page ────────────────────────────────────────── */
+.blog-grid {
+  display: grid;
+  gap: 1.75rem;
+}
+
+.blog-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.blog-card:hover {
+  box-shadow: 5px 5px 0 var(--border-dark);
+  transform: translate(-2px, -2px);
+}
+
+.blog-card-header {
+  padding: 1.5rem 1.5rem 1rem;
+  border-bottom: 1px dashed var(--border);
+}
+
+.blog-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.blog-date {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.blog-category {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+  border: 1px solid var(--accent-2);
+  padding: 0.1rem 0.5rem;
+}
+
+.blog-title {
+  font-family: var(--font-head);
+  font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+  font-weight: 700;
+  margin-bottom: 0;
+  line-height: 1.35;
+}
+
+.blog-excerpt {
+  padding: 1rem 1.5rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.blog-card-footer {
+  padding: 0.75rem 1.5rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.read-more-btn {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--accent);
+  padding: 0;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.read-more-btn:hover {
+  color: var(--accent-2);
+}
+
+.read-more-btn::after {
+  content: '→';
+}
+
+.blog-full {
+  display: none;
+  padding: 0 1.5rem 1.5rem;
+  border-top: 1px dashed var(--border);
+}
+
+.blog-full.open {
+  display: block;
+}
+
+.blog-full p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+/* ── Footer ───────────────────────────────────────────── */
+.site-footer {
+  border-top: 3px double var(--border-dark);
+  background: var(--bg-dark);
+  color: #C4B49A;
+  padding: 2rem 0;
+  margin-top: 4rem;
+}
+
+.footer-inner {
+  max-width: var(--max-w);
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-name {
+  font-family: var(--font-head);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #FAF7F2;
+}
+
+.footer-copy {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+}
+
+.footer-links a {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #C4B49A;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: #FAF7F2;
+}
+
+/* ── Page Header Banner — Retro Masthead Style ─────────── */
+.page-header {
+  color: #FAF7F2;
+  padding: 3rem 0 2.75rem;
+  margin-bottom: 2.5rem;
+  position: relative;
+  overflow: hidden;
+  /* Same texture layering as the nav */
+  background-color: #1e1e30;
+  background-image:
+    linear-gradient(rgba(20, 20, 45, 0.80), rgba(20, 20, 45, 0.80)),
+    url('../assets/research_bg_grid.png');
+  background-size: auto, 320px;
+  background-repeat: repeat;
+  /* Top + bottom ornamental rules — mirrors nav treatment */
+  border-top: none;
+  border-bottom: 0;
+  box-shadow: 0 3px 0 var(--accent), 0 5px 0 rgba(139, 46, 46, 0.18);
+}
+
+/* Subtle gradient vignette at the edges */
+.page-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(10, 10, 25, 0.55) 100%);
+  pointer-events: none;
+}
+
+/* Top inner highlight line */
+.page-header::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(196, 180, 154, 0.25);
+  pointer-events: none;
+}
+
+.page-header-inner {
+  max-width: var(--max-w);
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+  position: relative;
+  /* above the pseudo overlays */
+}
+
+/* ── Specific Nav inside Page Header ───────────────────── */
+.page-header-nav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+/* Large ornamental section title */
+.page-header h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 900;
+  color: #FAF7F2;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.02em;
+  text-shadow: 1px 2px 10px rgba(0, 0, 0, 0.6);
+  line-height: 1.1;
+}
+
+/* Ornamental subtitle: flanking rule lines */
+.page-header p {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  color: #8B7A68;
+  text-transform: uppercase;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.page-header p::before,
+.page-header p::after {
+  content: '';
+  display: inline-block;
+  flex: 1;
+  max-width: 60px;
+  height: 1px;
+  background: rgba(139, 122, 104, 0.45);
+}
+
+
+/* ── Ornamental Corner Box ─────────────────────────────── */
+.retro-box {
+  border: 2px solid var(--border-dark);
+  padding: 1.5rem;
+  position: relative;
+  background: var(--bg-card);
+}
+
+.retro-box::before,
+.retro-box::after {
+  content: '✦';
+  position: absolute;
+  font-size: 0.6rem;
+  color: var(--accent);
+}
+
+.retro-box::before {
+  top: 6px;
+  left: 8px;
+}
+
+.retro-box::after {
+  bottom: 6px;
+  right: 8px;
+}
+
+/* ── Utility ─────────────────────────────────────────── */
+.text-muted {
+  color: var(--text-muted);
+}
+
+.text-mono {
+  font-family: var(--font-mono);
+}
+
+.mt-1 {
+  margin-top: 0.5rem;
+}
+
+.mt-2 {
+  margin-top: 1rem;
+}
+
+.mt-3 {
+  margin-top: 1.5rem;
+}
+
+.mb-2 {
+  margin-bottom: 1rem;
+}
+
+.mb-3 {
+  margin-bottom: 1.5rem;
+}
+
+.mb-4 {
+  margin-bottom: 2rem;
+}
+
+/* ── Scroll to top ────────────────────────────────────── */
+.scroll-top {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  width: 38px;
+  height: 38px;
+  background: var(--bg-dark);
+  color: #C4B49A;
+  border: 1px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s, background 0.2s;
+  z-index: 900;
+  text-decoration: none;
+}
+
+.scroll-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.scroll-top:hover {
+  background: var(--accent);
+  color: #FAF7F2;
+  text-decoration: none;
+}
+
+.avatar-wrapper {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid var(--bg-card);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
+  flex-shrink: 0;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+/* ── Hero Social Icons ────────────────────────────────── */
+.hero-social {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+  text-decoration: none;
+}
+
+.social-link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: rgba(139, 46, 46, 0.08);
+  text-decoration: none;
+}
+
+/* ── Mobile / Responsive ─────────────────────────────── */
+
+/* Larger tap targets for social icons on mobile */
+@media (max-width: 640px) {
+
+  /* Expand the fixed navigation bar on mobile to fit two rows */
+  .site-nav {
+    height: auto;
+    padding-bottom: 1rem;
+  }
+
+  .page-wrapper {
+    padding-top: 160px;
+    /* Account for the taller stacked nav bar */
+  }
+
+  .nav-inner {
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    padding-top: 1.25rem;
+  }
+
+  .nav-brand {
+    padding-right: 0;
+  }
+
+  .nav-brand::after {
+    display: none;
+  }
+
+  .nav-brand-text {
+    align-items: center;
+    text-align: center;
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .social-link {
+    width: 42px;
+    height: 42px;
+  }
+
+  /* Hero switches to column on phone */
+  .hero-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-avatar {
+    order: -1;
+    width: 140px;
+    margin: 0 auto;
+  }
+
+  .avatar-wrapper {
+    width: 140px;
+    height: 140px;
+  }
+
+  .hero-name {
+    font-size: clamp(1.9rem, 9vw, 2.8rem);
+  }
+
+  /* CV download bar wraps nicely */
+  .cv-download-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  /* Publication list — remove fixed max-height on very small screens */
+  .pub-list[style*="max-height"] {
+    max-height: none !important;
+  }
+
+  /* CV rows go single column */
+  .cv-row {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+
+  /* Footer stacks */
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  /* Blog cards full width with smaller font */
+  .blog-title {
+    font-size: 1.1rem;
+  }
+
+  .pub-title {
+    font-size: 1rem;
+  }
+
+  /* Post content images don't overflow */
+  .post-content img {
+    width: 100%;
+  }
+
+  /* Reduce container padding */
+  .container {
+    padding-inline: 1rem;
+  }
+
+  /* Page header takes less space, but keep enough top padding for OS status bars/notches */
+  .page-header {
+    padding: 3rem 0 1.75rem;
+  }
+
+  /* Page header nav wraps or aligns properly on small screens */
+  .page-header-nav {
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+
+  /* Navbar brand smaller on tiny screens */
+  .nav-brand {
+    font-size: 0.85rem;
+  }
+
+  .nav-brand-sub {
+    font-size: 0.55rem;
+  }
+
+  /* Further reduce hero name on tiny screens */
+  .hero-name {
+    font-size: clamp(1.7rem, 10vw, 2.2rem);
+  }
+
+  /* Pub card buttons wrap better */
+  .pub-links {
+    gap: 0.4rem;
+  }
+
+  .btn-link {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.5rem;
+  }
+}

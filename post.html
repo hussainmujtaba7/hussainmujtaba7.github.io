@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Blog post — Mujtaba Hussain Mirza" />
+    <title>Blog — Mujtaba Hussain Mirza</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+        /* ── Markdown Post Content ──────────────────────────── */
+        .post-content h1,
+        .post-content h2,
+        .post-content h3 {
+            margin: 1.75rem 0 0.75rem;
+        }
+
+        .post-content p {
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+        }
+
+        .post-content ul,
+        .post-content ol {
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .post-content li {
+            margin-bottom: 0.35rem;
+            color: var(--text-muted);
+        }
+
+        .post-content code {
+            font-family: var(--font-mono);
+            font-size: 0.85em;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 0.1em 0.35em;
+        }
+
+        .post-content pre {
+            background: var(--bg-dark);
+            color: #C4B49A;
+            padding: 1.25rem;
+            overflow-x: auto;
+            margin-bottom: 1.25rem;
+            border-left: 4px solid var(--accent);
+        }
+
+        .post-content pre code {
+            background: none;
+            border: none;
+            padding: 0;
+            font-size: 0.85rem;
+            color: inherit;
+        }
+
+        .post-content blockquote {
+            border-left: 4px solid var(--border-dark);
+            padding: 0.5rem 1rem;
+            margin: 1.25rem 0;
+            background: var(--bg-card);
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .post-content img {
+            max-width: 100%;
+            margin: 1.5rem auto;
+            display: block;
+            border: 1px solid var(--border);
+        }
+
+        .post-content a {
+            color: var(--accent);
+        }
+
+        .post-content hr {
+            border: none;
+            border-top: 1px dashed var(--border);
+            margin: 2rem 0;
+        }
+
+        .post-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.25rem;
+            font-size: 0.9rem;
+        }
+
+        .post-content th {
+            background: var(--bg-dark);
+            color: #FAF7F2;
+            padding: 0.5rem 0.75rem;
+            text-align: left;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.08em;
+        }
+
+        .post-content td {
+            padding: 0.5rem 0.75rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Loading / error states */
+        #post-loading {
+            color: var(--text-muted);
+            font-style: italic;
+            padding: 2rem 0;
+        }
+
+        #post-error {
+            color: var(--accent);
+            padding: 2rem 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ── Page Header (Combined Nav & Title) ─────────────── -->
+    <header class="page-header" id="post-header">
+        <div class="page-header-inner">
+            <div class="page-header-nav">
+                <ul class="nav-links" style="padding-left:0; margin:0;">
+                    <li>
+                        <a href="index.html" style="display:flex; align-items:center; gap:0.25rem;">
+                            <img src="../assets/logo.png" alt="Website Logo" class="nav-logo"
+                                style="height: 32px; width: auto; object-fit: contain;" />
+                            Home
+                        </a>
+                    </li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <h1 id="post-title">Loading…</h1>
+            <p id="post-meta"></p>
+        </div>
+    </header>
+
+    <!-- ── Post Body ──────────────────────────────────────── -->
+    <main>
+        <div class="container" style="padding-bottom: 4rem;">
+            <p id="post-loading">Loading post…</p>
+            <p id="post-error" style="display:none;"></p>
+            <article id="post-body" class="post-content" style="display:none;"></article>
+            <div style="margin-top: 2.5rem;">
+                <a href="blog.html" class="btn-link">← Back to Blog</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- ── Footer ─────────────────────────────────────────── -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="footer-inner">
+            <div>
+                <p class="footer-name">Mujtaba Hussain Mirza</p>
+                <p class="footer-copy">PhD Student · Sapienza University of Rome</p>
+            </div>
+            <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="blog.html">Blog</a></li>
+            </ul>
+        </div>
+        <div
+            style="text-align: center; margin-top: 2rem; color: #8B7A68; font-family: var(--font-mono); font-size: 0.8rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+            From --- <img src="../assets/logo.png" alt="Website Logo"
+                style="height: 24px; width: auto; object-fit: contain;">
+        </div>
+    </footer>
+
+    <a href="#" id="scroll-top" class="scroll-top" aria-label="Scroll to top">↑</a>
+
+    <!-- marked.js for Markdown -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- KaTeX for ultra-fast equation rendering (LaTeX) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        crossorigin="anonymous"></script>
+
+    <script src="js/main.js"></script>
+    <script>
+        (function () {
+            const params = new URLSearchParams(window.location.search);
+            const slug = params.get('slug');
+            const loading = document.getElementById('post-loading');
+            const errorEl = document.getElementById('post-error');
+            const body = document.getElementById('post-body');
+            const title = document.getElementById('post-title');
+            const meta = document.getElementById('post-meta');
+
+            if (!slug) {
+                loading.style.display = 'none';
+                errorEl.textContent = 'No post specified. Return to the blog index.';
+                errorEl.style.display = 'block';
+                return;
+            }
+
+            // Fetch the markdown file from the post's dedicated folder with cache busting
+            fetch('posts/' + slug + '/index.txt?t=' + new Date().getTime())
+                .then(function (res) {
+                    if (!res.ok) throw new Error('Post not found (' + res.status + ')');
+                    return res.text();
+                })
+                .then(function (text) {
+                    // Strip BOM and normalize line endings before parsing
+                    text = text.replace(/^\uFEFF/, '').replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+                    // Parse front-matter
+                    var fm = {};
+                    var content = text;
+                    if (text.trimStart().startsWith('---')) {
+                        var startPos = text.indexOf('---') + 3;
+                        var end = text.indexOf('---', startPos);
+                        if (end !== -1) {
+                            var fmBlock = text.slice(startPos, end).trim();
+                            // The content starts after the second "---" plus potential newline
+                            var afterEnd = text.indexOf('\n', end);
+                            content = (afterEnd !== -1) ? text.slice(afterEnd + 1).trim() : text.slice(end + 3).trim();
+
+                            fmBlock.split('\n').forEach(function (line) {
+                                var colon = line.indexOf(':');
+                                if (colon !== -1) {
+                                    var key = line.slice(0, colon).trim().toLowerCase();
+                                    var val = line.slice(colon + 1).trim();
+                                    // Remove surrounding quotes if present
+                                    val = val.replace(/^["']|["']$/g, '');
+                                    fm[key] = val;
+                                }
+                            });
+                        }
+                    }
+
+                    var postTitle = fm.title || slug;
+                    document.title = postTitle + ' — Mujtaba Hussain Mirza';
+                    title.textContent = postTitle;
+
+                    var metaParts = [];
+                    if (fm.date) metaParts.push(fm.date);
+                    if (fm.category) metaParts.push(fm.category);
+                    if (fm.readtime || fm['read-time']) metaParts.push('~' + (fm.readtime || fm['read-time']));
+                    meta.textContent = metaParts.join(' · ');
+
+                    // ── Marked Math Extension ──────────────────────────────────────────
+                    // Prevent marked from escaping backslashes in math blocks.
+                    const mathExtension = {
+                        name: 'math',
+                        level: 'inline',
+                        start(src) { return src.indexOf('$') !== -1 || src.indexOf('\\') !== -1 ? src.search(/\$|\\\(|\\\[/) : -1; },
+                        tokenizer(src, tokens) {
+                            const blockRule = /^\$\$([\s\S]+?)\$\$/;
+                            const inlineRule = /^\$([^$\n]+?)\$/;
+                            const parenRule = /^\\\(([\s\S]+?)\\\)/;
+                            const brackRule = /^\\\[([\s\S]+?)\\\]/;
+                            let match;
+                            if (match = blockRule.exec(src)) return { type: 'math', raw: match[0], text: match[1], display: true };
+                            if (match = inlineRule.exec(src)) return { type: 'math', raw: match[0], text: match[1], display: false };
+                            if (match = parenRule.exec(src)) return { type: 'math', raw: match[0], text: match[1], display: false };
+                            if (match = brackRule.exec(src)) return { type: 'math', raw: match[0], text: match[1], display: true };
+                        },
+                        renderer(token) {
+                            const delim = token.display ? (token.raw.startsWith('$$') ? '$$' : '\\[') : (token.raw.startsWith('$') ? '$' : '\\(');
+                            const endDelim = token.display ? (token.raw.startsWith('$$') ? '$$' : '\\]') : (token.raw.startsWith('$') ? '$' : '\\)');
+                            return delim + token.text + endDelim;
+                        }
+                    };
+                    const renderer = new marked.Renderer();
+                    renderer.image = function (href, title, text) {
+                        if (typeof href === 'object') {
+                            text = href.text;
+                            title = href.title;
+                            href = href.href;
+                        }
+                        if (href && !href.startsWith('http') && !href.startsWith('/')) {
+                            href = 'posts/' + slug + '/' + href;
+                        }
+                        return '<img src="' + href + '" alt="' + (text || '') + '" title="' + (title || '') + '">';
+                    };
+                    marked.use({ extensions: [mathExtension], renderer: renderer });
+
+                    body.innerHTML = marked.parse(content);
+                    loading.style.display = 'none';
+                    body.style.display = 'block';
+
+                    // Run KaTeX auto-render on the newly inserted content
+                    if (window.renderMathInElement) {
+                        try {
+                            window.renderMathInElement(body, {
+                                delimiters: [
+                                    { left: '$$', right: '$$', display: true },
+                                    { left: '$', right: '$', display: false },
+                                    { left: '\\(', right: '\\)', display: false },
+                                    { left: '\\[', right: '\\]', display: true }
+                                ],
+                                throwOnError: false
+                            });
+                        } catch (e) {
+                            console.error('KaTeX error: ', e);
+                        }
+                    }
+                })
+                .catch(function (err) {
+                    loading.style.display = 'none';
+                    errorEl.textContent = 'Could not load post: ' + err.message;
+                    errorEl.style.display = 'block';
+                });
+        })();
+    </script>
+</body>
+
+</html>
